@@ -34,18 +34,16 @@ auth_params = {
 }
 
 # print('?'.join((AUTH_URL, urlencode(auth_params))))
-# Получили ссылку: https://oauth.vk.com/authorize?client_id=6623972&scope=friends&response_type=token&v=5.80
-# Взяли из ссылки token:
-# access_token=70eab1891ceb9bb3224a88b56cb98e3a0768873efaec25436949c8f507adcf6cc70314784685f0f704128
 
-TOKEN = '70eab1891ceb9bb3224a88b56cb98e3a0768873efaec25436949c8f507adcf6cc70314784685f0f704128'
+
+TOKEN = '72d21e6bb857d40d1a86965c289a7dac1bcb379fb474c72aba24d89cb615e3b9e5d4df90b05837f4af220'
 VK_URL = 'https://vk.com/'
 
 
 if __name__ == '__main__':
     print('********** START PROGRAMM **********')
     other_id = input('Введите через запятую идентификаторы: ').split(',')
-    
+
     params = {
         'access_token': TOKEN,
         'source_uid': 3004879, #  id моей страницы
@@ -60,7 +58,12 @@ if __name__ == '__main__':
         params['target_uid'] = other_id
 
     response = requests.get('https://api.vk.com/method/friends.getMutual', params)
-    common_friends_lst = response.json()["response"][0]["common_friends"]
+    print(response.json()["response"])
+    try:
+        common_friends_lst = response.json()["response"][0]["common_friends"]
+    except TypeError:
+        common_friends_lst = response.json()["response"]
+
     links_common_friends = []
     for id in common_friends_lst:
         links_common_friends.append('https://vk.com/id' + str(id))

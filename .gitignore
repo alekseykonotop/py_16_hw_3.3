@@ -1,3 +1,6 @@
 .idea/
 venv/
 .DS_Store
+vk_api_test.py
+hw_3.3_v.2.py
+vk_config.v2.json
